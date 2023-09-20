@@ -1,1 +1,2 @@
 - Chacon, S. and Strub, B, Pro git. Apress.
+- Loeliger, J. and McCullough, M. Version control with Git. O'Reilly
