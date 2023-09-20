@@ -1,2 +1,6 @@
 - Chacon, S. and Strub, B, Pro git. Apress.
+<<<<<<< HEAD
 - Loeliger, J. and McCullough, M. Version control with Git. O'Reilly
+=======
+- Ryan Hodson. Ry's Git Tutorial. Smashwords (2014)
+>>>>>>> 30f2660 (Añadida nueva referencia bibliográfica)
