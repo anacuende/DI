@@ -1,32 +1,17 @@
-print("Introduce dos valores")
-a = int(input("Primer valor: "))
-b = int(input("Segundo valor: "))
+a = 2
+b = 5
 
 def suma(a, b):
-	resultadoSuma = a + b
-	return resultadoSuma
+	return a + b
 
 def resta(a, b):
-	resultadoResta = a - b
-	return resultadoResta
+	return a - b
 
 def multiplicacion(a, b):
-	resultadoMultiplicacion = a * b
-	return resultadoMultiplicacion
+	return a * b
 
 def division(a, b):
 	if b == 0:
-		resultadoDivision = "Infinito"
-		return resultadoDivision
+		return "Infinito"
 	else:
-		resultadoDivision = a / b
-		return resultadoDivision
-
-resultadoSuma = suma(a, b)
-print({resultadoSuma})
-resultadoResta = resta(a, b)
-print({resultadoResta})
-resultadoMultiplicacion = multiplicacion(a, b)
-print({resultadoMultiplicacion})
-resultadoDivision = division(a, b)
-print({resultadoDivision})
+		return a / b
