@@ -1,16 +1,13 @@
-# Importa la biblioteca tkinter como tk
 import tkinter as tk
-
-# Importa las clases Image y ImageTk de la biblioteca PIL (Pillow)
 from PIL import Image, ImageTk
 
 # Define una clase llamada DetailWindow
-# Agregar al final de tu archivo
-
 class DetailWindow:
     def __init__(self, root, title, image_url, description):
+        # Constructor de la clase DetailWindow, que recibe cuatro parámetros
         self.root = root
         root.title("Detalle")
+        # Calcula la posición para centrar la ventana en la pantalla
         x = (self.root.winfo_screenwidth() - self.root.winfo_reqwidth()) / 2
         y = (self.root.winfo_screenheight() - self.root.winfo_reqheight()) / 2
         self.root.geometry(f"+{int(x)}+{int(y)}")
