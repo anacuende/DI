@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, Label, Frame, Scrollbar, Canvas
 from PIL import Image, ImageTk, UnidentifiedImageError
 import requests
 from io import BytesIO
@@ -15,7 +15,18 @@ class Window:
         x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
         y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
         root.geometry(f"+{int(x)}+{int(y)}")
+        
+        self.canvas = tk.Canvas(root)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+        scrollbar = tk.Scrollbar(root, command=self.canvas.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.canvas.config(yscrollcommand=scrollbar.set)
+
+        self.frame = tk.Frame(self.canvas)
+        self.canvas.create_window((0, 0), window=self.frame, anchor=tk.NW)
+
+    
         # Crear una lista de objetos Cell con los datos del JSON
         self.datas = []
         for data in self.json_data:
@@ -30,10 +41,13 @@ class Window:
 
         # Itera sobre las celdas y configura las etiquetas correspondientes en la ventana
         for i, cell in enumerate(self.datas):
-            label = tk.Label(root, text=cell.name, image=cell.image_url, compound=tk.BOTTOM)
-            label.grid(row=i, column=0)
+            label = tk.Label(self.frame, text=cell.name, image=cell.image_url, compound=tk.BOTTOM)
+            label.grid(row=i, column=0, sticky=tk.W)
             # Asocia el evento de clic izquierdo del ratón con la función on_button_clicked
             label.bind("<Button-1>", lambda event, cell=cell: self.on_button_clicked(cell))
+
+        self.frame.update_idletasks()
+        self.canvas.config(scrollregion=self.canvas.bbox("all"))
 
         self.create_menu(root)
     
@@ -47,8 +61,6 @@ class Window:
 
         # Elemento "Acerca de"
         help_menu.add_command(label="Acerca de", command=self.show_about_dialog)
-
-
 
     def load_image_from_url(self, url):
         try:
