@@ -11,6 +11,9 @@ class DetailWindow:
     def __init__(self, root, title, image_url, description):
         self.root = root
         root.title("Detalle")
+        x = (self.root.winfo_screenwidth() - self.root.winfo_reqwidth()) / 2
+        y = (self.root.winfo_screenheight() - self.root.winfo_reqheight()) / 2
+        self.root.geometry(f"+{int(x)}+{int(y)}")
 
         # Crear una etiqueta para el título
         self.title = tk.Label(root, text=title, font=("Arial", 16))

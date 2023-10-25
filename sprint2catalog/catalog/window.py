@@ -11,6 +11,9 @@ class Window:
         self.json_data = json_data
         # Establece el título de la ventana principal
         root.title("Ventana")
+        x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+        y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+        root.geometry(f"+{int(x)}+{int(y)}")
 
         # Crear una lista de objetos Cell con los datos del JSON
         self.datas = []
