@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
 import requests
 from io import BytesIO
@@ -34,6 +35,21 @@ class Window:
             # Asocia el evento de clic izquierdo del ratón con la función on_button_clicked
             label.bind("<Button-1>", lambda event, cell=cell: self.on_button_clicked(cell))
 
+        self.create_menu(root)
+    
+    def create_menu(self, root):
+        menubar = tk.Menu(root)
+        root.config(menu=menubar)
+
+        # Menú "Ayuda"
+        help_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Ayuda", menu=help_menu)
+
+        # Elemento "Acerca de"
+        help_menu.add_command(label="Acerca de", command=self.show_about_dialog)
+
+
+
     def load_image_from_url(self, url):
         try:
             response = requests.get(url)
@@ -55,4 +71,6 @@ class Window:
     def on_button_clicked(self, cell):
         root = tk.Toplevel()
         detail_window = DetailWindow(root, cell.name, cell.image_url, cell.description)
-    
+
+    def show_about_dialog(self):
+        messagebox.showinfo("Acerca de", "Desarrollado por Ana Betsabé Cuende Tomé")
