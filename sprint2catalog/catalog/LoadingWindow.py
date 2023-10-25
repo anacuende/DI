@@ -43,6 +43,8 @@ class LoadingWindow:
         # Verifica si el subproceso está en ejecución
         if self.thread.is_alive():
             self.check_data()
+        # Elimina la ventana de carga cuando los datos se han cargado
+        self.root.protocol("WM_DELETE_WINDOW", self.close_window)
 
     # Dibuja la circunferencia de progreso
     def draw_progress_circle(self, progress):
@@ -69,7 +71,9 @@ class LoadingWindow:
         self.root.after(15, self.update_progress_circle)
 
     def close_window(self):
-        # Cierra la ventana de carga
+        # Evita que la ventana de carga se cierre antes de que los datos se carguen completamente
+        if not self.finished:
+            return
         self.root.destroy()
 
     # Realiza una solicitud HTTP para obtener datos JSON

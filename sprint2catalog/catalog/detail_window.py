@@ -21,5 +21,7 @@ class DetailWindow:
         self.image_url.pack()
 
         # Crear una etiqueta para la descripción
-        self.description = tk.Label(root, text=description, font=("Arial", 12))
+        self.description = tk.Label(root, text=description, font=("Arial", 12), wraplength=300)
         self.description.pack()
+        # Establecer un tamaño específico para la etiqueta de descripción
+        self.description.config(width=40, height=10)

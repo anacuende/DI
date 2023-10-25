@@ -47,14 +47,14 @@ class Window:
         # Itera sobre las celdas y configura las etiquetas correspondientes en la ventana
         for i, cell in enumerate(self.datas):
             label = tk.Label(self.frame, text=cell.name, image=cell.image_url, compound=tk.BOTTOM)
-            label.grid(row=i, column=0, sticky=tk.W)
+            label.pack()
             # Asocia el evento de clic izquierdo del ratón con la función on_button_clicked
             label.bind("<Button-1>", lambda event, cell=cell: self.on_button_clicked(cell))
-
+            label.config(anchor="center")
         # Ajusta el lienzo y el marco para que funcione con la barra de desplazamiento
         self.frame.update_idletasks()
         self.canvas.config(scrollregion=self.canvas.bbox("all"))
-
+        
         # Crea un menú en la ventana principal
         self.create_menu(root)
     
