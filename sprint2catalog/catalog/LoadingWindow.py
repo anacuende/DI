@@ -4,14 +4,14 @@ import threading
 from window import Window
 
 class LoadingWindow:
-    def __init__(self, root, callback):
+    def __init__(self, root):
         # Inicializar la ventana principal
         self.finished = False
         self.root = root
         self.root.title("Cargando")
         self.root.geometry("170x120")
         self.root.resizable(False, False)
-        self.callback = callback
+        
 
         # Crear una etiqueta en la ventana
         self.label = tk.Label(self.root, text="Cargando datos...", font=("Arial", 14))
@@ -32,7 +32,8 @@ class LoadingWindow:
         self.update_progress_circle()
         self.thread = threading.Thread(target=self.fetch_json_data)
         self.thread.start()
-        self.check_data()
+        if self.thread.is_alive():
+            self.check_data()
 
     def draw_progress_circle(self, progress):
         # Borra la circunferencia anterior
@@ -59,8 +60,6 @@ class LoadingWindow:
     def close_window(self):
         # Cierra la ventana de carga
         self.root.destroy()
-        # Llama a la función de devolución de llamada
-        self.callback()
 
     def fetch_json_data(self):
         response = requests.get("https://raw.githubusercontent.com/anacuende/DI/main/recursos/Ejercicio2.json")
@@ -74,11 +73,6 @@ class LoadingWindow:
             launch_main_window(self.json_data)
         else:
             self.root.after(100, self.check_data)
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = LoadingWindow(root, lambda: root.destroy())
-    root.mainloop()
 
 def launch_main_window(json_data):
     root = tk.Tk()

@@ -1,10 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, UnidentifiedImageError
 import requests
 from io import BytesIO
 from cell import Cell  # Importa la clase Cell desde el archivo cell.py
+from detail_window import DetailWindow
 
 class Window:
     def __init__(self, root, json_data):
@@ -14,25 +13,43 @@ class Window:
         root.title("Ventana")
 
         # Crear una lista de objetos Cell con los datos del JSON
-        self.cells = []
+        self.datas = []
         for data in self.json_data:
             #extraigo los datos de cada JSONObject 
             name = data.get("name")
             description = data.get("description")
-            image_url = data.get("image_url")
+            url = data.get("image_url")
+            img = self.load_image_from_url(url)
             
             #Crear una celda para cada dato(object) e incluírla en una lista
-            self.datos.append(Cell(name, description, image_url))
+            self.datas.append(Cell(name, description, img))
 
         # Itera sobre las celdas y configura las etiquetas correspondientes en la ventana
-        for i, cell in enumerate(self.cells):
-            label = ttk.Label(root, text=cell.name, image = cell.image_url,compound=tk.BOTTOM)
+        for i, cell in enumerate(self.datas):
+            label = tk.Label(root, text=cell.name, image=cell.image_url, compound=tk.BOTTOM)
             label.grid(row=i, column=0)
             # Asocia el evento de clic izquierdo del ratón con la función on_button_clicked
             label.bind("<Button-1>", lambda event, cell=cell: self.on_button_clicked(cell))
 
+    def load_image_from_url(self, url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Verifica si la solicitud es exitosa
+            image_data = Image.open(BytesIO(response.content))
+            foto = ImageTk.PhotoImage(image_data)
+            return foto
+        except requests.exceptions.RequestException as e:
+            # Manejo de error de solicitud
+            print(f"Error en la solicitud: {e}")
+        except UnidentifiedImageError as e:
+            # Manejo de error de imagen no identificada
+            print(f"Error al abrir la imagen: {e}")
+        except Exception as e:
+            # Otros errores
+            print(f"Error inesperado: {e}")
+        return None
+
     def on_button_clicked(self, cell):
-        # Define el mensaje que se mostrará en el cuadro de diálogo
-        message = f"Has hecho clic en la celda {cell.name}\n{cell.description}"
-        # Muestra un cuadro de diálogo de información con el mensaje
-        messagebox.showinfo("Información", message)
+        root = tk.Toplevel()
+        detail_window = DetailWindow(root, cell.name, cell.image_url, cell.description)
+    

@@ -3,5 +3,5 @@ from LoadingWindow import LoadingWindow
 
 if __name__ == "__main__":
     root = tk.Tk()
-    loading_app = LoadingWindow(root, lambda: root.destroy())
+    loading_app = LoadingWindow(root)
     root.mainloop()
