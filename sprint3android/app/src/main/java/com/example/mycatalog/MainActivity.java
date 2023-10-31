@@ -1,4 +1,4 @@
- package com.example.mycatalog;
+package com.example.mycatalog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
