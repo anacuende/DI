@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-    />
+        />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="15dp"
-    />
+        />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
@@ -43,7 +43,7 @@
         app:civ_border_width="2dp"
         app:civ_border_overlay="true"
         android:src="@drawable/image_circular"
-    />
+        />
 
     <TextView
         android:id="@+id/textViewDescription"
@@ -57,7 +57,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-    />
+        />
 
     <Button
         android:id="@+id/buttonLike"
@@ -68,6 +68,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="25dp"
-    />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
