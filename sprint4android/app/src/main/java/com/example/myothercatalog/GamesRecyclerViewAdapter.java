@@ -14,6 +14,15 @@ import java.util.List;
 public class GamesRecyclerViewAdapter extends RecyclerView.Adapter<GamesRecyclerViewAdapter.ViewHolder> {
     private List<GamesData> gamesDataList;
     private Activity activity;
+    private OnItemClickListener onItemClickListener;
+    // Interfaz que gestiona los clicks
+    public interface OnItemClickListener {
+        void onItemClick(GamesData gamesData);
+    }
+    // Establecer el Listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     // Constructor que recibe la lista de datos y la actividad
     public GamesRecyclerViewAdapter(List<GamesData> gamesDataList, Activity activity) {
         this.gamesDataList = gamesDataList;
@@ -36,6 +45,15 @@ public class GamesRecyclerViewAdapter extends RecyclerView.Adapter<GamesRecycler
         holder.textViewTitle.setText(gamesData.getName());
         // Carga la imagen utilizando Picasso y la URL
         Picasso.get().load(gamesData.getImageUrl()).into(holder.imageViewGame);
+        // Establece un click en un elemento de la lista
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(gamesData);
+                }
+            }
+        });
     }
     // Devuelve la cantidad de elementos en la lista
     @Override

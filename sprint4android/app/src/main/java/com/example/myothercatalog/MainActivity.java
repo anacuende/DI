@@ -1,6 +1,7 @@
 package com.example.myothercatalog;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                         // Crear un adaptador con la lista de datos
                         GamesRecyclerViewAdapter adapter = new GamesRecyclerViewAdapter(allTheGames, activity);
+                        // Configuración del Listener del Adapter
+                        adapter.setOnItemClickListener(new GamesRecyclerViewAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(GamesData gamesData) {
+                                Intent intent = new Intent(activity, DetailActivity.class);
+                                intent.putExtra("name", gamesData.getName());
+                                intent.putExtra("description", gamesData.getDescription());
+                                intent.putExtra("imageUrl", gamesData.getImageUrl());
+                                startActivity(intent);
+                            }
+                        });
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                     }
