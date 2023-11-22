@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#070059</color>
     <color name="customBackgroundColor">#CCC8FD</color>
     <color name="customTextColor">#000000</color>
+    <color name="customTextColorDetail">#070059</color>
 </resources>
