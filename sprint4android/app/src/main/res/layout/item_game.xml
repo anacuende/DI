@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/image_view_game"
+        style="@style/ImageViewStyle"
         android:layout_width="0dp"
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
 
     <TextView
         android:id="@+id/text_view_title"
+        style="@style/TitleTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
